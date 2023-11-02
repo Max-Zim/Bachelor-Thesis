@@ -1,0 +1,8 @@
+prohibition_areas:
+ # now we define a line
+ # it will become the thickness of the costmap resolution
+ #- [[1.7, -0.75],
+ #   [-0.4, -0.75]]
+ #- [[1.7, 0.81],
+ #   [1.7, -0.75]]
+ none

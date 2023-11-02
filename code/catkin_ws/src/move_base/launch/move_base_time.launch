@@ -1,0 +1,31 @@
+<launch>
+
+  <arg name="device_name" default="anon"/>
+
+  <group ns="/maxba/$(arg device_name)" >
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+
+      <rosparam file="$(find move_base)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+      <rosparam file="$(find move_base)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+      <rosparam file="$(find move_base)/config/local_costmap_params.yaml" command="load" />
+      <rosparam file="$(find move_base)/config/global_costmap_params.yaml" command="load" />
+      <rosparam file="$(find move_base)/config/base_local_planner_params.yaml" command="load" />
+
+      <rosparam file="$(find move_base)/config/move_base_params.yaml" command="load" />
+
+      <rosparam file="$(find move_base)/config/teb_local_planner.yaml" command="load" />
+
+      <rosparam file="$(find move_base)/config/costmap_prohibition_layer.yaml" command="load" param="/maxba/$(arg device_name)/move_base/global_costmap/prohibition_layer" />
+      <rosparam file="$(find move_base)/config/costmap_prohibition_layer.yaml" command="load" param="/maxba/$(arg device_name)/move_base/local_costmap/prohibition_layer" />
+            
+            
+      <remap from="cmd_vel" to="/devices/$(arg device_name)/cmd_vel"/>
+      <remap from="/scan" to="/devices/$(arg device_name)/scan" />
+      <remap from="/odom" to="/devices/$(arg device_name)/odom"/>
+      <remap from="/tf" to="/$(arg device_name)_tf_amcl_max"/> 
+      <remap from="/tf_static" to="/$(arg device_name)_tf_static"/> 
+    </node>
+
+  </group>
+</launch>
+
